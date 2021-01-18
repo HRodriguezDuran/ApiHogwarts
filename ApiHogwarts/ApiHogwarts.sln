@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiHogwarts", "ApiHogwarts.csproj", "{77E5BB02-8FBC-41A7-A15F-21A1CF90B957}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77E5BB02-8FBC-41A7-A15F-21A1CF90B957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E5BB02-8FBC-41A7-A15F-21A1CF90B957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E5BB02-8FBC-41A7-A15F-21A1CF90B957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E5BB02-8FBC-41A7-A15F-21A1CF90B957}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B8C53D6-984F-42BC-9D6A-83E75F8634B3}
+	EndGlobalSection
+EndGlobal
