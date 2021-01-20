@@ -2,6 +2,7 @@
 using Interface.Manager;
 using Interface.Repository;
 using Repository.Entities;
+using System.Threading.Tasks;
 
 namespace Manager
 {
@@ -14,29 +15,35 @@ namespace Manager
             _studentRepository = studentRepository;
         }
 
-        public StudentDTO Create(StudentDTO dto)
+        public async Task<int> DeleteAsync(RequestDTO dto)
         {
-            StudentEntity entity = ToEntity(dto);
+            RequestEntity entity = ToEntity(dto);
+            return await _studentRepository.DeleteAsync(entity);
+        }
+
+        public RequestDTO Create(RequestDTO dto)
+        {
+            RequestEntity entity = ToEntity(dto);
             entity.Id = 0;
             return ToDTO(_studentRepository.Create(entity));
         }
 
-        public StudentDTO Update(StudentDTO dto)
+        public RequestDTO Get(RequestDTO dto)
         {
-            StudentEntity entity = ToEntity(dto);
-            return ToDTO(_studentRepository.Update(entity));
-        }
-
-        public StudentDTO Get(StudentDTO dto)
-        {
-            StudentEntity result = _studentRepository.Get(ToEntity(dto));
+            RequestEntity result = _studentRepository.Get(ToEntity(dto));
 
             return result != null ? ToDTO(result) : null;
         }
 
-        private StudentDTO ToDTO(StudentEntity entity)
+        public RequestDTO Update(RequestDTO dto)
         {
-            return new StudentDTO
+            RequestEntity entity = ToEntity(dto);
+            return ToDTO(_studentRepository.Update(entity));
+        }
+
+        private RequestDTO ToDTO(RequestEntity entity)
+        {
+            return new RequestDTO
             {
                 Age = entity.Age,
                 House = entity.House,
@@ -47,9 +54,9 @@ namespace Manager
             };
         }
 
-        private StudentEntity ToEntity(StudentDTO dto)
+        private RequestEntity ToEntity(RequestDTO dto)
         {
-            return new StudentEntity
+            return new RequestEntity
             {
                 Age = dto.Age,
                 House = dto.House,

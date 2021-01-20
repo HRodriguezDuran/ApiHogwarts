@@ -1,6 +1,6 @@
 ﻿namespace Repository.Entities
 {
-    public class StudentEntity
+    public class RequestEntity
     {
         public int Id { get; set; }
 

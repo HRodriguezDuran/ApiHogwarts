@@ -4,7 +4,7 @@ using static DTO.Enums.Enums;
 
 namespace DTO
 {
-    public class StudentDTO
+    public class RequestDTO
     {
         public int Id { get; set; }
 

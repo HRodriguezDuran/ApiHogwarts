@@ -39,7 +39,7 @@ namespace ApiHogwarts
             //services.AddControllersWithViews();
             //services.AddRazorPages();
 
-            //services.AddSwaggerGen();
+            services.AddSwaggerGen();
 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IStudentManager, StudentManager>();
@@ -62,6 +62,15 @@ namespace ApiHogwarts
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hogwarts API");
+            });
 
             app.UseRouting();
 

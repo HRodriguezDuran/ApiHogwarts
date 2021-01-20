@@ -2,6 +2,8 @@
 using Interface.Bussines;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace ApiHogwarts.Controllers
 {
@@ -20,19 +22,61 @@ namespace ApiHogwarts.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Create a new record for the request
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult<StudentDTO> Create([FromBody] StudentDTO dto)
+        public ActionResult<Response<RequestDTO>> Create([FromBody] RequestDTO dto)
         {
-            
+            try
+            {
+                return new Response<RequestDTO>
+                {
+                    IsSuccess = true,
+                    Result = _studentService.Create(dto)
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
 
-            return _studentService.Create(dto);
+                return new Response<RequestDTO>
+                {
+                    IsSuccess = false,
+                    Message = e.Message
+                };
+            }            
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<int>> Delete(int id)
+        {
+            try
+            {
+                return await _studentService.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+
+                // TODO:
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<RequestDTO> Get(int id)
+        {
+            return Ok(_studentService.Get(id));
         }
 
 
         [HttpPut]
-        public ActionResult<StudentDTO> Update([FromBody] StudentDTO dto)
+        public ActionResult<RequestDTO> Update([FromBody] RequestDTO dto)
         {
-            StudentDTO result = _studentService.Update(dto);
+            RequestDTO result = _studentService.Update(dto);
 
             if(result == null)
             {
@@ -40,12 +84,6 @@ namespace ApiHogwarts.Controllers
             }
 
             return result;
-        }
-
-        [HttpGet]
-        public ActionResult<StudentDTO> Get(int id)
-        {
-            return Ok(_studentService.Get(id));
         }
 
     }

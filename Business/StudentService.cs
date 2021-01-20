@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Interface.Bussines;
 using Interface.Manager;
+using System.Threading.Tasks;
 
 namespace Business
 {
@@ -13,14 +14,24 @@ namespace Business
             _studentManager = studentManager;
         }
 
-        public StudentDTO Create(StudentDTO dto)
+        public RequestDTO Create(RequestDTO dto)
         {
             return _studentManager.Create(dto);
         }
 
-        public StudentDTO Update(StudentDTO dto)
+        public async Task<int> DeleteAsync(int id)
         {
-            StudentDTO studentExists = Get(dto.Id);
+            return await _studentManager.DeleteAsync(new RequestDTO { Id = id });
+        }
+
+        public RequestDTO Get(int id)
+        {
+            return _studentManager.Get(new RequestDTO { Id = id});
+        }
+
+        public RequestDTO Update(RequestDTO dto)
+        {
+            RequestDTO studentExists = Get(dto.Id);
 
             if (studentExists == null)
             {
@@ -28,11 +39,6 @@ namespace Business
             }
 
             return _studentManager.Update(dto);
-        }
-
-        public StudentDTO Get(int id)
-        {
-            return _studentManager.Get(new StudentDTO { Id = id});
         }
     }
 }

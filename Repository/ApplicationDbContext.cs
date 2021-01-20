@@ -11,6 +11,6 @@ namespace Repository
         {
         }
 
-        public DbSet<StudentEntity> Students { get; set; }
+        public DbSet<RequestEntity> Students { get; set; }
     }
 }

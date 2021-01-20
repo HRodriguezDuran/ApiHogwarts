@@ -1,12 +1,16 @@
 ﻿using DTO;
+using System.Threading.Tasks;
 
 namespace Interface.Manager
 {
     public interface IStudentManager
     {
-        public StudentDTO Create(StudentDTO dto);
+        public RequestDTO Create(RequestDTO dto);
 
-        public StudentDTO Update(StudentDTO dto);
-        public StudentDTO Get(StudentDTO dto);
+        public Task<int> DeleteAsync(RequestDTO dto);
+
+        public RequestDTO Get(RequestDTO dto);
+
+        public RequestDTO Update(RequestDTO dto);
     }
 }
