@@ -33,9 +33,10 @@ namespace ApiHogwarts.Controllers
         {
             try
             {
-                return   new Response<RequestDTO>
+                return new Response<RequestDTO>
                 {
                     IsSuccess = true,
+                    Message = "La solicitud de ingreso se ha creado correctamente",
                     Result = await _studentService.CreateAsync(dto)
                 };
             }
@@ -48,21 +49,43 @@ namespace ApiHogwarts.Controllers
                     IsSuccess = false,
                     Message = e.Message
                 };
-            }            
+            }
         }
 
         [HttpDelete]
-        public async Task<ActionResult<int>> Delete(int id)
+        public async Task<Response<int>> Delete(int id)
         {
             try
             {
-                return await _studentService.DeleteAsync(id);
+                int result = await _studentService.DeleteAsync(id);
+
+                if (result > 0)
+                {
+                    return new Response<int>
+                    {
+                        IsSuccess = true,
+                        Result = result
+                    };
+                }
+                else
+                {
+                    return new Response<int>
+                    {
+                        IsSuccess = false,
+                        Message = "No records deleted."
+                    };
+                }
             }
             catch (Exception e)
             {
                 _logger.LogError(e.Message);
 
-                return BadRequest();
+                return new Response<int>
+                {
+                    IsSuccess = false,
+                    Message = e.Message,
+                    Result = 0
+                };
             }
         }
 
@@ -73,24 +96,36 @@ namespace ApiHogwarts.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ICollection<RequestDTO>> Get()
+        public ActionResult<Response<ICollection<RequestDTO>>> Get()
         {
-            return Ok(_studentService.Get());
+            return new Response<ICollection<RequestDTO>>
+            {
+                IsSuccess = true,
+                Result = _studentService.Get()
+            };
         }
 
 
 
         [HttpPut]
-        public async Task<ActionResult<RequestDTO>> UpdateAsync([FromBody] RequestDTO dto)
+        public async Task<ActionResult<Response<RequestDTO>>> UpdateAsync([FromBody] RequestDTO dto)
         {
             RequestDTO result = await _studentService.UpdateAsync(dto);
 
-            if(result == null)
+            if (result == null)
             {
-                return NotFound();
+                return new Response<RequestDTO>
+                {
+                    IsSuccess = false,
+                    Message = "No record found"
+                };
             }
 
-            return result;
+            return new Response<RequestDTO>
+            {
+                IsSuccess = true,
+                Result = result
+            };
         }
 
     }

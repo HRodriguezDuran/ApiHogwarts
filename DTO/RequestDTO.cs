@@ -6,6 +6,7 @@ namespace DTO
 {
     public class RequestDTO
     {
+        [Range(1, 9999, ErrorMessage = "The field {0} must be between {1} and {2}")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]

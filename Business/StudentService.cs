@@ -37,13 +37,6 @@ namespace Business
 
         public async Task<RequestDTO> UpdateAsync(RequestDTO dto)
         {
-            RequestDTO studentExists = Get(dto.Id);
-
-            if (studentExists == null)
-            {
-                return null;
-            }
-
             return await _studentManager.UpdateAsync(dto);
         }
     }

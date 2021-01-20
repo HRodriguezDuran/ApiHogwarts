@@ -66,10 +66,31 @@ namespace Repository
 
         public async Task<RequestEntity> UpdateAsync(RequestEntity entity)
         {
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
+            try
+            {
+                if (Exists(entity.Id))
+                {
+                    _context.Update(entity);
+                    await _context.SaveChangesAsync();
+                    
+                    return entity;
+                }
 
-            return entity;
+                return null;
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+
+                throw new Exception(SQL_ERROR);
+            }
+        }
+
+
+        private bool Exists(int id)
+        {
+            return _context.Students.Any(s => s.Id == id);
         }
     }
 }

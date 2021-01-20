@@ -1,6 +1,6 @@
 ﻿namespace DTO
 {
-    public class Response<T> where T : class
+    public class Response<T>
     {
         public bool IsSuccess { get; set; }
 

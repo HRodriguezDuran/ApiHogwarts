@@ -46,15 +46,18 @@ namespace Manager
 
         public async Task<RequestDTO> UpdateAsync(RequestDTO dto)
         {
-            RequestEntity entity = ToEntity(dto);
-            return ToDTO(await _studentRepository.UpdateAsync(entity));
+            RequestEntity entity = await _studentRepository.UpdateAsync(ToEntity(dto));
+
+            if (entity != null)
+            {
+                return ToDTO(entity);
+            }
+
+            return null;
         }
 
         private RequestDTO ToDTO(RequestEntity entity)
         {
-
-
-
             return new RequestDTO
             {
                 Age = entity.Age,
