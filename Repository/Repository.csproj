@@ -1,8 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-ApiHogwarts-5B60C19A-6B92-4466-8F79-2DB55549D411</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,16 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
-    <ProjectReference Include="..\DTO\DTO.csproj" />
+    <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\Interface\Interface.csproj" />
-    <ProjectReference Include="..\Manager\Manager.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 
 </Project>
