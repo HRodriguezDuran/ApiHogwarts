@@ -23,7 +23,7 @@ namespace DTO
         [Range(1, 99, ErrorMessage = "The field {0} must be between {1} and {2}")]
         public int Age { get; set; }
 
-        //public HousesEnum House { get; set; }
+        [EnumDataType(typeof(HousesEnum))]
         public string House { get; set; }
     }
 }

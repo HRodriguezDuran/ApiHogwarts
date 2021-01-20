@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Interface.Bussines;
 using Interface.Manager;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Business
@@ -14,9 +15,9 @@ namespace Business
             _studentManager = studentManager;
         }
 
-        public RequestDTO Create(RequestDTO dto)
+        public async Task<RequestDTO> CreateAsync(RequestDTO dto)
         {
-            return _studentManager.Create(dto);
+            return await _studentManager.CreateAsync(dto);
         }
 
         public async Task<int> DeleteAsync(int id)
@@ -29,7 +30,12 @@ namespace Business
             return _studentManager.Get(new RequestDTO { Id = id});
         }
 
-        public RequestDTO Update(RequestDTO dto)
+        public ICollection<RequestDTO>  Get()
+        {
+            return _studentManager.Get();
+        }
+
+        public async Task<RequestDTO> UpdateAsync(RequestDTO dto)
         {
             RequestDTO studentExists = Get(dto.Id);
 
@@ -38,7 +44,7 @@ namespace Business
                 return null;
             }
 
-            return _studentManager.Update(dto);
+            return await _studentManager.UpdateAsync(dto);
         }
     }
 }

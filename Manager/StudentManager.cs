@@ -2,6 +2,8 @@
 using Interface.Manager;
 using Interface.Repository;
 using Repository.Entities;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Manager
@@ -21,11 +23,11 @@ namespace Manager
             return await _studentRepository.DeleteAsync(entity);
         }
 
-        public RequestDTO Create(RequestDTO dto)
+        public async Task<RequestDTO> CreateAsync(RequestDTO dto)
         {
             RequestEntity entity = ToEntity(dto);
             entity.Id = 0;
-            return ToDTO(_studentRepository.Create(entity));
+            return  ToDTO(await _studentRepository.CreateAsync(entity));
         }
 
         public RequestDTO Get(RequestDTO dto)
@@ -35,14 +37,24 @@ namespace Manager
             return result != null ? ToDTO(result) : null;
         }
 
-        public RequestDTO Update(RequestDTO dto)
+        public ICollection<RequestDTO>  Get()
+        {
+            ICollection<RequestEntity> result = _studentRepository.Get();
+
+            return result.Select(e => ToDTO(e)).ToList();
+        }
+
+        public async Task<RequestDTO> UpdateAsync(RequestDTO dto)
         {
             RequestEntity entity = ToEntity(dto);
-            return ToDTO(_studentRepository.Update(entity));
+            return ToDTO(await _studentRepository.UpdateAsync(entity));
         }
 
         private RequestDTO ToDTO(RequestEntity entity)
         {
+
+
+
             return new RequestDTO
             {
                 Age = entity.Age,

@@ -3,6 +3,7 @@ using Interface.Bussines;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApiHogwarts.Controllers
@@ -28,14 +29,14 @@ namespace ApiHogwarts.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<Response<RequestDTO>> Create([FromBody] RequestDTO dto)
+        public async Task<ActionResult<Response<RequestDTO>>> CreateAsync([FromBody] RequestDTO dto)
         {
             try
             {
-                return new Response<RequestDTO>
+                return   new Response<RequestDTO>
                 {
                     IsSuccess = true,
-                    Result = _studentService.Create(dto)
+                    Result = await _studentService.CreateAsync(dto)
                 };
             }
             catch (Exception e)
@@ -61,7 +62,6 @@ namespace ApiHogwarts.Controllers
             {
                 _logger.LogError(e.Message);
 
-                // TODO:
                 return BadRequest();
             }
         }
@@ -72,11 +72,18 @@ namespace ApiHogwarts.Controllers
             return Ok(_studentService.Get(id));
         }
 
+        [HttpGet]
+        public ActionResult<ICollection<RequestDTO>> Get()
+        {
+            return Ok(_studentService.Get());
+        }
+
+
 
         [HttpPut]
-        public ActionResult<RequestDTO> Update([FromBody] RequestDTO dto)
+        public async Task<ActionResult<RequestDTO>> UpdateAsync([FromBody] RequestDTO dto)
         {
-            RequestDTO result = _studentService.Update(dto);
+            RequestDTO result = await _studentService.UpdateAsync(dto);
 
             if(result == null)
             {

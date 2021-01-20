@@ -1,16 +1,19 @@
 ﻿using DTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Interface.Bussines
 {
     public interface IStudentService
     {
-        public RequestDTO Create(RequestDTO dto);
+        public Task<RequestDTO> CreateAsync(RequestDTO dto);
 
         public Task<int> DeleteAsync(int id);
 
         public RequestDTO Get(int id);
 
-        public RequestDTO Update(RequestDTO dto);
+        public ICollection<RequestDTO> Get();
+
+        public Task<RequestDTO> UpdateAsync(RequestDTO dto);
     }
 }

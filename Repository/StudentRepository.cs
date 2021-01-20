@@ -22,12 +22,12 @@ namespace Repository
             _logger = logger;
         }
 
-        public RequestEntity Create(RequestEntity entity)
+        public async Task<RequestEntity> CreateAsync(RequestEntity entity)
         {
             try
             {
-                _context.Add(entity);
-                _context.SaveChanges();
+                await _context.AddAsync(entity);
+                await _context.SaveChangesAsync();
 
                 return entity;
             }
@@ -51,7 +51,7 @@ namespace Repository
         {
             try
             {
-                return _context.Students.ToList();
+                return _context.Students.OrderBy(s => s.LastName).ToList();
             }
             catch (Exception e)
             {
@@ -64,10 +64,10 @@ namespace Repository
             return _context.Students.Where(e => e.Id == entity.Id).FirstOrDefault();
         }
 
-        public RequestEntity Update(RequestEntity entity)
+        public async Task<RequestEntity> UpdateAsync(RequestEntity entity)
         {
             _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return entity;
         }
